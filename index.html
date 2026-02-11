@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>Pavlo Belevtsev — Resume</title>
+
+  <style>
+    /* Apple-style minimal: soft gradient, clean cards, SF-like system fonts */
+    :root{
+      --bg0:#ffffff;
+      --bg1:#fbfdff;
+      --bg2:#fbfffd;
+
+      --text:#111a2f;
+      --muted:rgba(17,26,47,.52);
+      --faint:rgba(17,26,47,.38);
+
+      --card:rgba(255,255,255,1);
+      --stroke:rgba(10,20,40,.035);
+      --shadow: 0 8px 26px rgba(10,20,40,.05);
+
+      --accent:#8fb8ff;      /* extra-light pastel blue */
+      --accent2:#7ee9dc;     /* airy mint */
+      --good:#8fe9c5;
+
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial;
+    }
+
+    /* Light theme only */
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      line-height:1.45;
+      background:
+        radial-gradient(1200px 800px at 15% -10%, rgba(143,184,255,.08), transparent 68%),
+        radial-gradient(900px 600px at 90% 0%, rgba(126,233,220,.07), transparent 64%),
+        radial-gradient(900px 600px at 55% 120%, rgba(143,233,197,.06), transparent 64%),
+        linear-gradient(180deg, var(--bg1), var(--bg0) 40%, var(--bg2));
+      background-attachment: fixed;
+    }
+
+    a{ color: var(--accent); text-decoration: none; }
+    a:hover{ text-decoration: underline; text-underline-offset: 3px; }
+
+    .wrap{ max-width: 1040px; margin: 44px auto; padding: 0 18px; }
+
+    .shell{
+      display:grid;
+      grid-template-columns: 320px 1fr;
+      gap: 18px;
+      align-items:start;
+    }
+    @media (max-width: 900px){
+      .shell{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      animation: cardFloatIn .7s ease both;
+      will-change: transform, opacity;
+    }
+
+    .pad{ padding: 22px; }
+    .pad-lg{ padding: 24px 26px; }
+
+    /* Header */
+    .hero{
+      padding: 22px;
+      border-bottom: 1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(37,99,235,.06), transparent);
+    }
+    .name{
+      margin:0;
+      font-size: 28px;
+      letter-spacing: .2px;
+      line-height: 1.12;
+    }
+    .role{
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .meta{
+      margin-top: 12px;
+      display:grid;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .meta div{
+      padding: 10px 12px;
+      border: 1px solid var(--stroke);
+      border-radius: 14px;
+      background: rgba(255,255,255,.22);
+    }
+    /* Light theme only */
+
+    /* Contact */
+    .contact-card{
+      margin-top: 12px;
+      border-radius: 16px;
+      border: 1px solid var(--stroke);
+      background:
+        linear-gradient(180deg, rgba(143,184,255,.12), rgba(126,233,220,.08)),
+        rgba(255,255,255,.75);
+      padding: 12px;
+      display:grid;
+      gap: 10px;
+    }
+    /* Light theme only */
+    .contact-item{
+      display:grid;
+      grid-template-columns: 34px 1fr;
+      gap: 10px;
+      align-items:center;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.8);
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    /* Light theme only */
+    .contact-item:hover{
+      transform: translateY(-1px);
+      border-color: rgba(143,184,255,.45);
+      box-shadow: 0 10px 24px rgba(10,20,40,.14);
+    }
+    .contact-ico{
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display:grid;
+      place-items:center;
+      color: var(--accent);
+      background: rgba(143,184,255,.14);
+      border: 1px solid rgba(143,184,255,.24);
+    }
+    .contact-ico svg{ width: 18px; height: 18px; }
+    .contact-label{
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+    .contact-value{
+      margin-top: 3px;
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 600;
+      word-break: break-word;
+    }
+    .contact-actions{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 900px){
+      .contact-actions{ grid-template-columns: 1fr; }
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 650;
+      border: 1px solid rgba(143,184,255,.35);
+      background: linear-gradient(180deg, rgba(143,184,255,.22), rgba(143,184,255,.12));
+      color: var(--text);
+      text-decoration:none;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(143,184,255,.55);
+      box-shadow: 0 10px 20px rgba(10,20,40,.14);
+      text-decoration:none;
+    }
+    .btn.ghost{
+      border-color: rgba(126,233,220,.45);
+      background: linear-gradient(180deg, rgba(126,233,220,.22), rgba(126,233,220,.12));
+    }
+
+    /* Section titles */
+    .st{
+      margin: 0 0 10px;
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--faint);
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      font-weight: bold;
+    }
+    .st:after{
+      content:"";
+      height:1px;
+      flex:1;
+      background: linear-gradient(90deg, var(--stroke), transparent);
+    }
+
+    /* Pills */
+    .pills{ display:flex; flex-wrap:wrap; gap: 8px; }
+    .pill{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      color: var(--muted);
+      background: rgba(255,255,255,.22);
+      white-space: nowrap;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, color .2s ease, background .2s ease;
+    }
+    .pill:hover{
+      transform: translateY(-1px);
+      border-color: rgba(111,161,255,.55);
+      box-shadow: 0 10px 18px rgba(10,20,40,.10);
+      color: var(--text);
+      background: rgba(255,255,255,.6);
+    }
+    /* Light theme only */
+
+    /* Main summary */
+    .summary{
+      margin:0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* Highlight grid */
+    .kpi{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    @media (max-width: 640px){ .kpi{ grid-template-columns: 1fr; } }
+    .k{
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.22);
+    }
+    /* Light theme only */
+    .k .n{
+      font-family: var(--mono);
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text);
+    }
+    .k .t{
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--faint);
+    }
+    .good{ color: var(--good); }
+
+    /* Jobs */
+    .jobs{ display:grid; gap: 14px; margin-top: 10px; }
+    .job{
+      border: 1px solid var(--stroke);
+      border-radius: 18px;
+      overflow:hidden;
+      background: rgba(255,255,255,.22);
+      animation: cardRise .7s ease both;
+    }
+    /* Light theme only */
+    .job-h{
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(37,99,235,.06), transparent);
+    }
+    .job-h b{ font-size: 14px; display:block; }
+    .job-h span{ font-size: 12px; color: var(--muted); display:block; margin-top: 2px; }
+    .job-h .date{ font-family: var(--mono); font-size: 12px; color: var(--faint); text-align:right; min-width: 110px; }
+
+    .job-b{ padding: 12px 18px 14px; font-size: 14px;}
+    ul{ margin: 0; padding-left: 18px; color: var(--muted); }
+    li{ margin: 6px 0; }
+
+    /* Education */
+    .edu-card{
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.24);
+      display:grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items:start;
+      animation: cardRise .7s ease both;
+      position: relative;
+      overflow: hidden;
+      font-size: 14px;
+    }
+    .edu-card:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(120deg, rgba(111,161,255,.14), transparent 40%);
+      opacity:.6;
+      pointer-events:none;
+    }
+    /* Light theme only */
+    .edu-main{ position: relative; z-index: 1; }
+    .edu-title{
+      margin: 0;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .edu-school{
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .edu-place{
+      margin-top: 2px;
+      font-size: 12px;
+      color: var(--faint);
+    }
+    .edu-meta{
+      position: relative;
+      z-index: 1;
+      display:grid;
+      gap: 6px;
+      text-align:right;
+    }
+    .edu-date{
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--faint);
+    }
+    .edu-badge{
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 6px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(111,161,255,.35);
+      background: rgba(111,161,255,.14);
+      color: var(--text);
+      display:inline-flex;
+      justify-content:center;
+    }
+
+    .foot{
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--faint);
+      text-align:center;
+    }
+
+    /* Animations */
+    @keyframes cardFloatIn{
+      from{ opacity: 0; transform: translateY(8px) scale(.99); }
+      to{ opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes cardRise{
+      from{ opacity: 0; transform: translateY(10px); }
+      to{ opacity: 1; transform: translateY(0); }
+    }
+    .card:nth-of-type(1){ animation-delay: .04s; }
+    .card:nth-of-type(2){ animation-delay: .12s; }
+    .job:nth-of-type(1){ animation-delay: .08s; }
+    .job:nth-of-type(2){ animation-delay: .16s; }
+    .job:nth-of-type(3){ animation-delay: .24s; }
+    .job:nth-of-type(4){ animation-delay: .32s; }
+    .job:nth-of-type(5){ animation-delay: .40s; }
+    .edu-card:nth-of-type(1){ animation-delay: .10s; }
+    .edu-card:nth-of-type(2){ animation-delay: .18s; }
+    @media (prefers-reduced-motion: reduce){
+      .card, .job, .edu-card, .contact-item, .btn{ animation: none !important; transition: none !important; }
+    }
+
+    /* Print */
+    @media print{
+      body{ background:#fff; color:#111; }
+      .wrap{ margin: 0; max-width: 100%; }
+      .card{ box-shadow:none; backdrop-filter:none; }
+      a{ color:#111; text-decoration:none; }
+      .foot{ display:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="shell">
+
+      <!-- Sidebar -->
+      <aside class="card">
+        <div class="hero">
+          <h1 class="name">Pavlo Belevtsev</h1>
+          <p class="role">Lead Software Engineer / Technical Lead</p>
+        </div>
+
+        <div class="pad">
+          <div class="st">Contact</div>
+          <div class="contact-card">
+            <div class="contact-item">
+              <div class="contact-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"></path>
+                  <circle cx="12" cy="10" r="2.6"></circle>
+                </svg>
+              </div>
+              <div>
+                <div class="contact-label">Location</div>
+                <div class="contact-value">EMEA</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 6h16v12H4z"></path>
+                  <path d="m4 7 8 6 8-6"></path>
+                </svg>
+              </div>
+              <div>
+                <div class="contact-label">Email</div>
+                <div class="contact-value"><a href="mailto:sir.belevtsev@gmail.com">sir.belevtsev@gmail.com</a></div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2.2c-5.4 0-9.8 4.4-9.8 9.8 0 4.3 2.8 7.9 6.7 9.2.5.1.7-.2.7-.5v-1.8c-2.7.6-3.3-1.1-3.3-1.1-.4-1-1-1.3-1-1.3-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.7.4-1.1.7-1.4-2.2-.3-4.5-1.1-4.5-5 0-1.1.4-2 1-2.7-.1-.2-.4-1.3.1-2.6 0 0 .8-.3 2.7 1a9.3 9.3 0 0 1 4.9 0c1.9-1.3 2.7-1 2.7-1 .6 1.3.3 2.4.1 2.6.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.6 5 .4.3.8 1 .8 2v3c0 .3.2.6.7.5 3.9-1.3 6.7-4.9 6.7-9.2 0-5.4-4.4-9.8-9.8-9.8z"></path>
+                </svg>
+              </div>
+              <div>
+                <div class="contact-label">GitHub</div>
+                <div class="contact-value"><a href="https://github.com/belevtsev" target="_blank" rel="noreferrer">github.com/belevtsev</a></div>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <a class="btn" href="mailto:sir.belevtsev@gmail.com">Email Me</a>
+              <a class="btn ghost" href="https://github.com/belevtsev" target="_blank" rel="noreferrer">View GitHub</a>
+            </div>
+          </div>
+
+          <div style="height:18px"></div>
+
+          <div class="st">Skills</div>
+          <div class="pills">
+            <span class="pill">Go</span><span class="pill">TypeScript</span><span class="pill">Node.js</span>
+            <span class="pill">PostgreSQL</span><span class="pill">Redis</span><span class="pill">GraphQL</span>
+            <span class="pill">gRPC</span><span class="pill">NATS JetStream</span>
+            <span class="pill">Docker</span><span class="pill">Terraform</span><span class="pill">CI/CD</span>
+            <span class="pill">Azure</span><span class="pill">AWS</span>
+            <span class="pill">React</span><span class="pill">React Native (Expo)</span>
+            <span class="pill">Microservices</span>
+          </div>
+
+          <div style="height:18px"></div>
+
+          <div class="st">Education</div>
+          <div class="edu-card">
+            <div class="edu-main">
+              <div class="edu-title">M.Sc. Software Engineering</div>
+              <div class="edu-school">Lviv Polytechnic National University</div>
+              <div class="edu-place">Lviv, Ukraine</div>
+            </div>
+            <div class="edu-meta">
+              <div class="edu-badge">Master’s</div>
+              <div class="edu-date">2006–2012</div>
+            </div>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <div class="st">Publication</div>
+          <div class="edu-card" style="grid-template-columns: 1fr;">
+            <div>
+              <b><a href="https://ieeexplore.ieee.org/document/5499331" target="_blank" rel="noreferrer">Prohibiting Screen Copying Algorithm for Content Security Protection</a></b>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main -->
+      <main class="card">
+        <div class="pad-lg">
+          <div class="st">Profile</div>
+          <p class="summary">
+            Technical Lead and Backend Engineer specializing in Go and distributed SaaS systems.
+            Proven experience in architecture design, event-driven microservices, and mentoring engineering teams.
+            Focused on building scalable, high-performance cloud platforms aligned with business goals—balancing engineering excellence with rapid time-to-market and tangible product value.
+          </p>
+
+          <!-- <div class="kpi">
+            <div class="k">
+              <div class="n"><span class="good">35%</span> latency</div>
+              <div class="t">API latency reduction (Redis + query optimization)</div>
+            </div>
+            <div class="k">
+              <div class="n">Multi-tenant</div>
+              <div class="t">SaaS platforms & workspace isolation</div>
+            </div>
+            <div class="k">
+              <div class="n">Event-driven</div>
+              <div class="t">NATS JetStream · gRPC</div>
+            </div>
+          </div> -->
+
+          <div class="st" style="margin-top:18px;">Experience</div>
+          <div class="jobs">
+
+            <section class="job">
+              <div class="job-h">
+                <div>
+                  <b>Agrantis — Retail & ERP SaaS Platform</b>
+                  <span>Lead Backend Engineer (Golang)</span>
+                </div>
+                <div class="date">2022–2026</div>
+              </div>
+              <div class="job-b">
+                <ul>
+                  <li>Led backend architecture for a multi-tenant ERP SaaS platform serving enterprise retailers and integrating with multiple ERP ecosystems.</li>
+                  <li>Designed event-driven microservices using NATS JetStream and gRPC, enabling scalable, low-latency service-to-service communication.</li>
+                  <li>Built an on-premises connector agent to securely synchronize data between retail ERP systems and the platform.</li>
+                  <li>Reduced API latency by <b>35%</b> via Redis caching and query optimization.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="job">
+              <div class="job-h">
+                <div>
+                  <b>MyDone — Task Management & Productivity Platform</b>
+                  <span>Lead Engineer (Golang)</span>
+                </div>
+                <div class="date">2020–2022</div>
+              </div>
+              <div class="job-b">
+                <ul>
+                  <li>Architected and delivered the full-stack multi-tenant platform for task management and collaboration.</li>
+                  <li>Built REST APIs and real-time synchronization features with RBAC and workspace isolation.</li>
+                  <li>Delivered KPI-driven analytics dashboards for product and performance insights.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="job">
+              <div class="job-h">
+                <div>
+                  <b>Intellias — Facility & Predictive Maintenance Platform</b>
+                  <span>Lead Backend Engineer (Golang)</span>
+                </div>
+                <div class="date">2019–2022</div>
+              </div>
+              <div class="job-b">
+                <ul>
+                  <li>Designed and scaled data ingestion pipelines for real-time facility monitoring and predictive maintenance, processing high-volume telemetry streams from sensors.</li>
+                  <li>Built dashboards enabling real-time monitoring of thousands of assets and operational metrics across enterprise environments.</li>
+                  <li>Operationalized predictive models by aligning ML outputs with business KPIs and maintenance optimization strategies.</li>
+                  <li>Implemented secure integrations with PCI-E sensor hardware and enterprise systems.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="job">
+              <div class="job-h">
+                <div>
+                  <b>Intellias — Facility & Office-Space Management</b>
+                  <span>Lead Backend Engineer (Golang / Node.js)</span>
+                </div>
+                <div class="date">2017–2019</div>
+              </div>
+              <div class="job-b">
+                <ul>
+                  <li>Built IAM modules for secure multi-tenant workspace isolation.</li>
+                  <li>Developed sensor-data ingestion for real-time occupancy and environmental monitoring.</li>
+                  <li>Exposed REST/gRPC APIs for web, mobile, and third-party BMS integrations.</li>
+                  <li>Integrated workspace booking with Microsoft Outlook / Exchange for real-time scheduling.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="job">
+              <div class="job-h">
+                <div>
+                  <b>Intellias — Navigation & Drone Systems</b>
+                  <span>Senior Full-Stack Engineer (Golang / Node.js)</span>
+                </div>
+                <div class="date">2015–2017</div>
+              </div>
+              <div class="job-b">
+                <ul>
+                  <li>Developed aviation-compliant flight authorization workflows aligned with regulatory requirements and airspace compliance.</li>
+                  <li>Built interactive airspace visualization tools showing restrictions, advisories, and flight zones.</li>
+                  <li>Integrated real-time telemetry and flight tracking via WebSockets and event-driven services.</li>
+                  <li>Implemented data synchronization with aviation authority systems via REST and gRPC APIs.</li>
+                </ul>
+              </div>
+            </section>
+
+          </div>
+
+          <div class="foot">Tip: Press <b>Ctrl/⌘ + P</b> to export a clean PDF (print styles included).</div>
+        </div>
+      </main>
+
+    </div>
+  </div>
+</body>
+</html>
