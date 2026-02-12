@@ -13,9 +13,9 @@
       --bg1:#fbfdff;
       --bg2:#fbfffd;
 
-      --text:#111a2f;
-      --muted:rgba(17,26,47,.52);
-      --faint:rgba(17,26,47,.38);
+      --text:#14203b;
+      --muted:rgba(20,32,59,.52);
+      --faint:rgba(20,32,59,.38);
 
       --card:rgba(255,255,255,1);
       --stroke:rgba(10,20,40,.035);
@@ -82,6 +82,36 @@
       padding: 22px;
       border-bottom: 1px solid var(--stroke);
       background: linear-gradient(180deg, rgba(37,99,235,.06), transparent);
+      display:grid;
+      grid-template-columns: 72px 1fr;
+      gap: 14px;
+      align-items:start;
+    }
+    @media (max-width: 900px){
+      .hero{ grid-template-columns: 64px 1fr; }
+    }
+    .avatar{
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      border: 1px solid rgba(143,184,255,.35);
+      background: linear-gradient(180deg, rgba(143,184,255,.25), rgba(126,233,220,.18));
+      padding: 3px;
+      box-shadow: 0 10px 22px rgba(10,20,40,.10);
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+    }
+    @media (max-width: 900px){
+      .avatar{ width: 64px; height: 64px; border-radius: 18px; }
+    }
+    .avatar img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px;
+      display:block;
+      background: #fff;
     }
     .name{
       margin:0;
@@ -412,8 +442,13 @@
       <!-- Sidebar -->
       <aside class="card">
         <div class="hero">
-          <h1 class="name">Pavlo Belevtsev</h1>
-          <p class="role">Lead Software Engineer / Technical Lead</p>
+          <div class="avatar">
+            <img src="https://avatars.githubusercontent.com/u/5251534?v=4" alt="Pavlo Belevtsev">
+          </div>
+          <div>
+            <h1 class="name">Pavlo Belevtsev</h1>
+            <p class="role">Lead Software Engineer / Technical Lead</p>
+          </div>
         </div>
 
         <div class="pad">
@@ -504,9 +539,7 @@
         <div class="pad-lg">
           <div class="st">Profile</div>
           <p class="summary">
-            Technical Lead and Backend Engineer specializing in Go and distributed SaaS systems.
-            Proven experience in architecture design, event-driven microservices, and mentoring engineering teams.
-            Focused on building scalable, high-performance cloud platforms aligned with business goals—balancing engineering excellence with rapid time-to-market and tangible product value.
+            Technical Lead and Backend Engineer with 10+ years of experience building and scaling distributed SaaS platforms in Retail, ERP, and IoT-driven domains. Led architecture decisions for multi-tenant systems integrating cloud and on-premise ecosystems. Experienced in event-driven microservices, PostgreSQL performance optimization, and mentoring high-performing engineering teams. Focused on delivering scalable, production-grade systems that maximize time-to-market, performance, and tangible business impact.
           </p>
 
           <!-- <div class="kpi">
@@ -537,10 +570,13 @@
               </div>
               <div class="job-b">
                 <ul>
-                  <li>Led backend architecture for a multi-tenant ERP SaaS platform serving enterprise retailers and integrating with multiple ERP ecosystems.</li>
-                  <li>Designed event-driven microservices using NATS JetStream and gRPC, enabling scalable, low-latency service-to-service communication.</li>
-                  <li>Built an on-premises connector agent to securely synchronize data between retail ERP systems and the platform.</li>
-                  <li>Reduced API latency by <b>35%</b> via Redis caching and query optimization.</li>
+                  <li>Led backend architecture for a multi-tenant Retail & ERP SaaS platform serving enterprise retailers and integrating with multiple ERP ecosystems.</li>
+                  <li>Designed event-driven microservices architecture using NATS JetStream and gRPC, enabling scalable, low-latency service-to-service communication.</li>
+                  <li>Designed and developed an on-premises connector agent that securely synchronized data between retail ERP systems and Agrantis platform.</li>
+                  <li>Implemented Redis caching and query optimizations, reducing API latency by 35%.</li>
+                  <li>Designed and developed integrations with various cloud ERP systems.</li>
+                  <li>Reduced time-to-market for new features by implementing a modular architecture and reusable components, enabling faster development cycles and quicker delivery of value to customers.</li>
+                  <li>Improve PostgreSQL search optimization using GIN / pg_trgm / full-text search, reducing search response times by up to 70% and eliminating sequential scans on high-volume tables.</li>
                 </ul>
               </div>
             </section>
@@ -555,9 +591,10 @@
               </div>
               <div class="job-b">
                 <ul>
-                  <li>Architected and delivered the full-stack multi-tenant platform for task management and collaboration.</li>
-                  <li>Built REST APIs and real-time synchronization features with RBAC and workspace isolation.</li>
-                  <li>Delivered KPI-driven analytics dashboards for product and performance insights.</li>
+                  <li>Architected and delivered the full-stack multi-tenant SaaS platform.</li>
+                  <li>Developed a responsive web interface for task tracking, goal management, and progress visualization.</li>
+                  <li>Implemented authentication, role-based access, and multi-tenant workspace isolation.</li>
+                  <li>Created dashboards and analytics modules linking tasks to company-level KPIs and performance insights.</li>
                 </ul>
               </div>
             </section>
@@ -572,10 +609,11 @@
               </div>
               <div class="job-b">
                 <ul>
-                  <li>Designed and scaled data ingestion pipelines for real-time facility monitoring and predictive maintenance, processing high-volume telemetry streams from sensors.</li>
-                  <li>Built dashboards enabling real-time monitoring of thousands of assets and operational metrics across enterprise environments.</li>
-                  <li>Operationalized predictive models by aligning ML outputs with business KPIs and maintenance optimization strategies.</li>
-                  <li>Implemented secure integrations with PCI-E sensor hardware and enterprise systems.</li>
+                  <li>Designed and scaled data ingestion pipelines for real-time facility monitoring and predictive maintenance systems, processing high-volume telemetry streams from sensors.</li>
+                  <li>Built interactive dashboards enabling real-time monitoring of thousands of assets and operational metrics across enterprise environments.</li>
+                  <li>Developed API integrations with third-party systems to enrich asset lifecycle and maintenance intelligence.</li>
+                  <li>Collaborated with data science teams to operationalize predictive models, aligning ML outputs with business KPIs and maintenance optimization strategies.</li>
+                  <li>Designed and implemented a secure on-premise connector agent ingesting data from PCI-E sensor hardware and transferring it reliably to the cloud platform.</li>
                 </ul>
               </div>
             </section>
@@ -590,10 +628,11 @@
               </div>
               <div class="job-b">
                 <ul>
-                  <li>Built IAM modules for secure multi-tenant workspace isolation.</li>
-                  <li>Developed sensor-data ingestion for real-time occupancy and environmental monitoring.</li>
+                  <li>Built IAM modules for secure multi-tenant workspace isolation</li>
+                  <li>Designed and developed sensor-data ingestion pipelines for real-time occupancy and environmental monitoring.</li>
+                  <li>Implemented backend microservices to aggregate and analyze occupancy, temperature, and motion data.</li>
                   <li>Exposed REST/gRPC APIs for web, mobile, and third-party BMS integrations.</li>
-                  <li>Integrated workspace booking with Microsoft Outlook / Exchange for real-time scheduling.</li>
+                  <li>Designed and integrated a workspace booking system with Microsoft Outlook / Exchange for real-time room scheduling.</li>
                 </ul>
               </div>
             </section>
@@ -608,10 +647,11 @@
               </div>
               <div class="job-b">
                 <ul>
-                  <li>Developed aviation-compliant flight authorization workflows aligned with regulatory requirements and airspace compliance.</li>
+                  <li>Developed flight authorization workflows aligned with aviation regulatory requirements and airspace compliance systems.</li>
                   <li>Built interactive airspace visualization tools showing restrictions, advisories, and flight zones.</li>
-                  <li>Integrated real-time telemetry and flight tracking via WebSockets and event-driven services.</li>
-                  <li>Implemented data synchronization with aviation authority systems via REST and gRPC APIs.</li>
+                  <li>Integrated real-time telemetry and flight tracking using WebSockets and event-driven data streams.</li>
+                  <li>Implemented data synchronization services with aviation authority systems via REST and gRPC APIs.</li>
+                  <li>Enhanced pilot dashboards and airspace rule editors through UI/UX improvements and performance optimizations.</li>
                 </ul>
               </div>
             </section>
