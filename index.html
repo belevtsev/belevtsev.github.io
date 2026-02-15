@@ -362,11 +362,11 @@
       bottom: 18px;
       z-index: 1200;
       border: 1px solid rgba(143,184,255,.45);
-      border-radius: 999px;
-      padding: 11px 14px;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: .02em;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display:grid;
+      place-items:center;
       color: var(--text);
       background: linear-gradient(180deg, rgba(143,184,255,.26), rgba(126,233,220,.18));
       box-shadow: 0 14px 28px rgba(10,20,40,.18);
@@ -375,14 +375,100 @@
       transform: translateY(12px);
       pointer-events:none;
       transition: opacity .24s ease, transform .24s ease, border-color .2s ease;
+      isolation: isolate;
+      overflow: visible;
+    }
+    .contact-bubble svg{
+      width: 15px;
+      height: 15px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .contact-bubble:before{
+      content:"";
+      position:absolute;
+      inset: -8px;
+      border-radius: 999px;
+      border: 1px solid rgba(143,184,255,.28);
+      opacity: 0;
+      transform: scale(.92);
+      pointer-events:none;
+    }
+    .contact-bubble:after{
+      content:"";
+      position:absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: radial-gradient(80% 110% at 20% 16%, rgba(255,255,255,.42), transparent 58%);
+      opacity: .8;
+      pointer-events:none;
+      z-index: -1;
     }
     .contact-bubble.is-visible{
       opacity: 1;
       transform: translateY(0);
       pointer-events:auto;
+      animation: bubbleFloat 2.8s ease-in-out infinite;
+    }
+    .contact-bubble.is-opening{
+      animation: bubbleOpenBurst .24s cubic-bezier(.18,.72,.25,1) both;
+    }
+    .contact-bubble.is-visible:before{
+      animation: bubblePulse 2.1s ease-out infinite;
+    }
+    .contact-bubble.is-opening:before{
+      animation: bubbleOpenRing .24s ease-out both;
     }
     .contact-bubble:hover{
       border-color: rgba(143,184,255,.65);
+    }
+    .contact-bubble:hover:before{
+      animation-duration: 1.2s;
+    }
+    @keyframes bubblePulse{
+      0%{
+        opacity: .08;
+        transform: scale(.92);
+      }
+      55%{
+        opacity: .24;
+      }
+      100%{
+        opacity: 0;
+        transform: scale(1.24);
+      }
+    }
+    @keyframes bubbleFloat{
+      0%, 100%{
+        transform: translateY(0) scale(1);
+      }
+      50%{
+        transform: translateY(-2px) scale(1.01);
+      }
+    }
+    @keyframes bubbleOpenBurst{
+      0%{
+        transform: translateY(0) scale(1);
+      }
+      55%{
+        transform: translateY(-1px) scale(1.12);
+      }
+      100%{
+        transform: translateY(-2px) scale(.86);
+      }
+    }
+    @keyframes bubbleOpenRing{
+      0%{
+        opacity: .18;
+        transform: scale(1);
+      }
+      100%{
+        opacity: 0;
+        transform: scale(1.45);
+      }
     }
     .contact-backdrop{
       position: fixed;
@@ -391,6 +477,13 @@
       background: rgba(8,15,30,.34);
       -webkit-backdrop-filter: blur(2px);
       backdrop-filter: blur(2px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .22s ease;
+    }
+    .contact-backdrop.is-open{
+      opacity: 1;
+      pointer-events: auto;
     }
     .contact-panel{
       position: fixed;
@@ -403,6 +496,15 @@
       background: var(--card);
       box-shadow: var(--shadow);
       padding: 14px;
+      opacity: 0;
+      transform: translateY(12px) scale(.98);
+      pointer-events: none;
+      transition: opacity .24s ease, transform .24s cubic-bezier(.2,.7,.2,1);
+    }
+    .contact-panel.is-open{
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
     }
     .contact-panel-head{
       display:flex;
@@ -474,6 +576,17 @@
       .contact-bubble{
         right: 12px;
         bottom: 12px;
+      }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .contact-backdrop, .contact-panel{
+        transition: none !important;
+      }
+      .contact-bubble.is-visible,
+      .contact-bubble.is-visible:before,
+      .contact-bubble.is-opening,
+      .contact-bubble.is-opening:before{
+        animation: none !important;
       }
     }
     .btn{
@@ -991,8 +1104,12 @@
     </main>
   </div>
 
-  <button id="contact-bubble" class="contact-bubble" type="button" aria-controls="contact-panel" aria-expanded="false" hidden>
-    Contact
+  <button id="contact-bubble" class="contact-bubble" type="button" aria-label="Open contact panel" aria-controls="contact-panel" aria-expanded="false" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="8" r="4"></circle>
+      <path d="M4 20c0-3.1 3.6-5.6 8-5.6s8 2.5 8 5.6"></path>
+    </svg>
+    <span class="sr-only">Open contact panel</span>
   </button>
   <div id="contact-backdrop" class="contact-backdrop" hidden></div>
   <section id="contact-panel" class="contact-panel" role="dialog" aria-modal="true" aria-labelledby="contact-panel-title" hidden>
@@ -1025,6 +1142,13 @@
       var contactPanelClose = document.getElementById("contact-panel-close");
       var contactInView = true;
       var previousFocus = null;
+      var panelCloseTimer = null;
+      var panelOpenTimer = null;
+      var bubbleOpenTimer = null;
+      var isContactPanelOpen = false;
+      var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var panelAnimationMs = prefersReducedMotion ? 0 : 240;
+      var bubbleOpenMs = prefersReducedMotion ? 0 : 180;
 
       function getStoredPreference(){
         var stored = localStorage.getItem(key);
@@ -1085,24 +1209,67 @@
 
       function setContactPanel(open){
         if (!contactPanel || !contactBackdrop || !contactBubble) return;
+        if (open === isContactPanelOpen) return;
+        isContactPanelOpen = open;
+
+        if (panelCloseTimer) {
+          clearTimeout(panelCloseTimer);
+          panelCloseTimer = null;
+        }
+        if (panelOpenTimer) {
+          clearTimeout(panelOpenTimer);
+          panelOpenTimer = null;
+        }
+        if (bubbleOpenTimer) {
+          clearTimeout(bubbleOpenTimer);
+          bubbleOpenTimer = null;
+        }
+
         if (open) {
           previousFocus = document.activeElement;
           contactPanel.hidden = false;
           contactBackdrop.hidden = false;
           contactBubble.setAttribute("aria-expanded", "true");
-          setBubbleVisible(false);
           document.body.style.overflow = "hidden";
-          if (contactPanelClose) contactPanelClose.focus();
+          if (bubbleOpenMs > 0) {
+            contactBubble.classList.add("is-opening");
+            panelOpenTimer = setTimeout(function(){
+              contactPanel.classList.add("is-open");
+              contactBackdrop.classList.add("is-open");
+              panelOpenTimer = null;
+            }, Math.round(bubbleOpenMs * 0.45));
+            bubbleOpenTimer = setTimeout(function(){
+              setBubbleVisible(false);
+              contactBubble.classList.remove("is-opening");
+              bubbleOpenTimer = null;
+            }, bubbleOpenMs);
+          } else {
+            requestAnimationFrame(function(){
+              contactPanel.classList.add("is-open");
+              contactBackdrop.classList.add("is-open");
+            });
+            setBubbleVisible(false);
+          }
+          setTimeout(function(){
+            if (isContactPanelOpen && contactPanelClose) contactPanelClose.focus();
+          }, bubbleOpenMs > 0 ? bubbleOpenMs : 0);
           return;
         }
-        contactPanel.hidden = true;
-        contactBackdrop.hidden = true;
+        contactBubble.classList.remove("is-opening");
+        contactPanel.classList.remove("is-open");
+        contactBackdrop.classList.remove("is-open");
         contactBubble.setAttribute("aria-expanded", "false");
         document.body.style.overflow = "";
         setBubbleVisible(!contactInView);
-        if (previousFocus && typeof previousFocus.focus === "function") {
-          previousFocus.focus();
-        }
+
+        panelCloseTimer = setTimeout(function(){
+          contactPanel.hidden = true;
+          contactBackdrop.hidden = true;
+          if (previousFocus && typeof previousFocus.focus === "function") {
+            previousFocus.focus();
+          }
+          panelCloseTimer = null;
+        }, panelAnimationMs);
       }
 
       function onContactVisibilityChange(isVisible){
