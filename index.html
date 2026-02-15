@@ -3,8 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="color-scheme" content="light" />
+  <meta name="color-scheme" content="light dark" />
   <title>Pavlo Belevtsev — Resume</title>
+  <script>
+    (function() {
+      try {
+        var storedTheme = localStorage.getItem("theme-preference");
+        if (storedTheme === "dark" || storedTheme === "light") {
+          document.documentElement.setAttribute("data-theme", storedTheme);
+        }
+      } catch (error) {}
+    })();
+  </script>
 
   <style>
     /* Apple-style minimal: soft gradient, clean cards, SF-like system fonts */
@@ -24,13 +34,57 @@
       --accent:#8fb8ff;      /* extra-light pastel blue */
       --accent2:#7ee9dc;     /* airy mint */
       --good:#8fe9c5;
+      --glow1:rgba(143,184,255,.08);
+      --glow2:rgba(126,233,220,.07);
+      --glow3:rgba(143,233,197,.06);
 
       --radius: 18px;
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial;
     }
 
-    /* Light theme only */
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme]){
+        --bg0:#070d1a;
+        --bg1:#0b1630;
+        --bg2:#0a2222;
+
+        --text:#eaf0ff;
+        --muted:rgba(234,240,255,.78);
+        --faint:rgba(234,240,255,.58);
+
+        --card:rgba(11,20,40,.82);
+        --stroke:rgba(255,255,255,.12);
+        --shadow: 0 20px 48px rgba(0,0,0,.36);
+
+        --accent:#a7c6ff;
+        --accent2:#89efe0;
+        --good:#9ae9c8;
+        --glow1:rgba(143,184,255,.14);
+        --glow2:rgba(126,233,220,.12);
+        --glow3:rgba(143,233,197,.10);
+      }
+    }
+    :root[data-theme="dark"]{
+      --bg0:#070d1a;
+      --bg1:#0b1630;
+      --bg2:#0a2222;
+
+      --text:#eaf0ff;
+      --muted:rgba(234,240,255,.78);
+      --faint:rgba(234,240,255,.58);
+
+      --card:rgba(11,20,40,.82);
+      --stroke:rgba(255,255,255,.12);
+      --shadow: 0 20px 48px rgba(0,0,0,.36);
+
+      --accent:#a7c6ff;
+      --accent2:#89efe0;
+      --good:#9ae9c8;
+      --glow1:rgba(143,184,255,.14);
+      --glow2:rgba(126,233,220,.12);
+      --glow3:rgba(143,233,197,.10);
+    }
 
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -40,9 +94,9 @@
       color:var(--text);
       line-height:1.45;
       background:
-        radial-gradient(1200px 800px at 15% -10%, rgba(143,184,255,.08), transparent 68%),
-        radial-gradient(900px 600px at 90% 0%, rgba(126,233,220,.07), transparent 64%),
-        radial-gradient(900px 600px at 55% 120%, rgba(143,233,197,.06), transparent 64%),
+        radial-gradient(1200px 800px at 15% -10%, var(--glow1), transparent 68%),
+        radial-gradient(900px 600px at 90% 0%, var(--glow2), transparent 64%),
+        radial-gradient(900px 600px at 55% 120%, var(--glow3), transparent 64%),
         linear-gradient(180deg, var(--bg1), var(--bg0) 40%, var(--bg2));
       background-attachment: fixed;
     }
@@ -51,6 +105,51 @@
     a:hover{ text-decoration: underline; text-underline-offset: 3px; }
 
     .wrap{ max-width: 1040px; margin: 44px auto; padding: 0 18px; }
+    .toolbar{
+      display:flex;
+      justify-content:flex-end;
+      margin: 0 0 12px;
+    }
+    .theme-toggle{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.74);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .03em;
+      cursor:pointer;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .theme-toggle:hover{
+      transform: translateY(-1px);
+      border-color: rgba(143,184,255,.5);
+      box-shadow: 0 8px 18px rgba(10,20,40,.12);
+      background: rgba(255,255,255,.92);
+    }
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme]) .theme-toggle{
+        background: rgba(255,255,255,.06);
+      }
+      :root:not([data-theme]) .theme-toggle:hover{
+        background: rgba(255,255,255,.10);
+        box-shadow: 0 10px 20px rgba(0,0,0,.25);
+      }
+    }
+    :root[data-theme="dark"] .theme-toggle{
+      background: rgba(255,255,255,.06);
+    }
+    :root[data-theme="dark"] .theme-toggle:hover{
+      background: rgba(255,255,255,.10);
+      box-shadow: 0 10px 20px rgba(0,0,0,.25);
+    }
+    @media (max-width: 900px){
+      .toolbar{ margin-bottom: 10px; }
+    }
 
     .shell{
       display:grid;
@@ -113,6 +212,10 @@
       display:block;
       background: #fff;
     }
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme]) .avatar img{ background:#0f172a; }
+    }
+    :root[data-theme="dark"] .avatar img{ background:#0f172a; }
     .name{
       margin:0;
       font-size: 28px;
@@ -138,7 +241,10 @@
       border-radius: 14px;
       background: rgba(255,255,255,.22);
     }
-    /* Light theme only */
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme]) .meta div{ background: rgba(255,255,255,.04); }
+    }
+    :root[data-theme="dark"] .meta div{ background: rgba(255,255,255,.04); }
 
     /* Contact */
     .contact-card{
@@ -152,7 +258,18 @@
       display:grid;
       gap: 10px;
     }
-    /* Light theme only */
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme]) .contact-card{
+        background:
+          linear-gradient(180deg, rgba(143,184,255,.16), rgba(126,233,220,.12)),
+          rgba(11,20,40,.64);
+      }
+    }
+    :root[data-theme="dark"] .contact-card{
+      background:
+        linear-gradient(180deg, rgba(143,184,255,.16), rgba(126,233,220,.12)),
+        rgba(11,20,40,.64);
+    }
     .contact-item{
       display:grid;
       grid-template-columns: 34px 1fr;
@@ -164,12 +281,19 @@
       background: rgba(255,255,255,.8);
       transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
     }
-    /* Light theme only */
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme]) .contact-item{ background: rgba(255,255,255,.05); }
+    }
+    :root[data-theme="dark"] .contact-item{ background: rgba(255,255,255,.05); }
     .contact-item:hover{
       transform: translateY(-1px);
       border-color: rgba(143,184,255,.45);
       box-shadow: 0 10px 24px rgba(10,20,40,.14);
     }
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme]) .contact-item:hover{ box-shadow: 0 12px 30px rgba(0,0,0,.28); }
+    }
+    :root[data-theme="dark"] .contact-item:hover{ box-shadow: 0 12px 30px rgba(0,0,0,.28); }
     .contact-ico{
       width: 34px;
       height: 34px;
@@ -266,7 +390,12 @@
       color: var(--text);
       background: rgba(255,255,255,.6);
     }
-    /* Light theme only */
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme]) .pill{ background: rgba(255,255,255,.04); }
+      :root:not([data-theme]) .pill:hover{ background: rgba(255,255,255,.08); }
+    }
+    :root[data-theme="dark"] .pill{ background: rgba(255,255,255,.04); }
+    :root[data-theme="dark"] .pill:hover{ background: rgba(255,255,255,.08); }
 
     /* Main summary */
     .summary{
@@ -289,7 +418,10 @@
       border: 1px solid var(--stroke);
       background: rgba(255,255,255,.22);
     }
-    /* Light theme only */
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme]) .k{ background: rgba(255,255,255,.04); }
+    }
+    :root[data-theme="dark"] .k{ background: rgba(255,255,255,.04); }
     .k .n{
       font-family: var(--mono);
       font-weight: 700;
@@ -312,7 +444,10 @@
       background: rgba(255,255,255,.22);
       animation: cardRise .7s ease both;
     }
-    /* Light theme only */
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme]) .job{ background: rgba(255,255,255,.04); }
+    }
+    :root[data-theme="dark"] .job{ background: rgba(255,255,255,.04); }
     .job-h{
       display:flex;
       justify-content:space-between;
@@ -352,7 +487,12 @@
       opacity:.6;
       pointer-events:none;
     }
-    /* Light theme only */
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme]) .edu-card{ background: rgba(255,255,255,.04); }
+      :root:not([data-theme]) .edu-card:before{ opacity:.34; }
+    }
+    :root[data-theme="dark"] .edu-card{ background: rgba(255,255,255,.04); }
+    :root[data-theme="dark"] .edu-card:before{ opacity:.34; }
     .edu-main{ position: relative; z-index: 1; }
     .edu-title{
       margin: 0;
@@ -428,6 +568,7 @@
     @media print{
       body{ background:#fff; color:#111; }
       .wrap{ margin: 0; max-width: 100%; }
+      .toolbar{ display:none; }
       .card{ box-shadow:none; backdrop-filter:none; }
       a{ color:#111; text-decoration:none; }
       .foot{ display:none; }
@@ -437,6 +578,12 @@
 
 <body>
   <div class="wrap">
+    <div class="toolbar">
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">
+        <span>Theme</span>
+        <span id="theme-toggle-label">Dark</span>
+      </button>
+    </div>
     <div class="shell">
 
       <!-- Sidebar -->
@@ -660,5 +807,71 @@
       </main>
     </div>
   </div>
+
+  <script>
+    (function(){
+      var root = document.documentElement;
+      var toggle = document.getElementById("theme-toggle");
+      var label = document.getElementById("theme-toggle-label");
+      var key = "theme-preference";
+      var media = window.matchMedia("(prefers-color-scheme: dark)");
+
+      function getResolvedTheme(){
+        if (root.dataset.theme === "dark" || root.dataset.theme === "light") {
+          return root.dataset.theme;
+        }
+        return media.matches ? "dark" : "light";
+      }
+
+      function updateToggleUI(){
+        var resolved = getResolvedTheme();
+        var next = resolved === "dark" ? "light" : "dark";
+        var text = next === "dark" ? "Use Dark" : "Use Light";
+        var auto = !root.dataset.theme;
+
+        toggle.setAttribute("aria-label", "Switch to " + next + " theme");
+        toggle.title = auto
+          ? "Using system theme. Click to override."
+          : "Using manual theme. Shift+click to return to system.";
+        label.textContent = text;
+      }
+
+      function applyStoredPreference(){
+        var stored = localStorage.getItem(key);
+        if (stored === "dark" || stored === "light") {
+          root.dataset.theme = stored;
+        } else {
+          root.removeAttribute("data-theme");
+        }
+        updateToggleUI();
+      }
+
+      toggle.addEventListener("click", function(event){
+        if (event.shiftKey) {
+          root.removeAttribute("data-theme");
+          localStorage.removeItem(key);
+          updateToggleUI();
+          return;
+        }
+        var resolved = getResolvedTheme();
+        var next = resolved === "dark" ? "light" : "dark";
+        root.dataset.theme = next;
+        localStorage.setItem(key, next);
+        updateToggleUI();
+      });
+
+      if (typeof media.addEventListener === "function") {
+        media.addEventListener("change", function(){
+          if (!root.dataset.theme) updateToggleUI();
+        });
+      } else if (typeof media.addListener === "function") {
+        media.addListener(function(){
+          if (!root.dataset.theme) updateToggleUI();
+        });
+      }
+
+      applyStoredPreference();
+    })();
+  </script>
 </body>
 </html>
