@@ -1,0 +1,88 @@
+Pavlo Belevtsev
+Staff / Lead Go Backend & Platform Engineer
+Ukraine · Remote
+14+ years of experience
+Email: pavlo.belevtsev@gmail.com
+Website: https://belevtsev.github.io/
+LinkedIn: https://linkedin.com/in/pbelevtsev
+GitHub: https://github.com/belevtsev
+
+PROFILE
+
+I build Go backends for complex business domains, with faster data access and dependable operations.
+
+I take ownership of services, components, and features, from design and delivery to production operations, including investigating failures and seeing fixes through.
+
+I've worked in enterprise teams with strict review and approval processes and in startups, including my own, where priorities change quickly and time to market comes first.
+
+I use AI-assisted development and review tools, including Claude and Codex, while retaining ownership of engineering decisions and verification.
+
+TECHNOLOGIES
+
+Go (Golang) | AI-Augmented Development (Claude, Codex, Multi-Agent Orchestration, LLM-Assisted Code Review, Prompt Engineering) | TypeScript | Node.js | PostgreSQL | PostGIS | S3 | Redis | NATS JetStream | gRPC | Protobuf | QUIC | mTLS | PKI | OpenTelemetry | Prometheus | WebSockets | GraphQL | REST APIs | Microservices | Event-Driven Architecture | Docker | Kubernetes | Terraform | CI/CD | AWS | Azure | React | React Native | Agile/Scrum | System Design | Technical Leadership
+
+SELECTED EXPERIENCE
+
+Commerce & ERP | 2022 – 2026
+- Led backend architecture for multi-tenant commerce and enterprise resource planning (ERP) services, covering catalogs and orders, invoices, and ERP integration.
+- Built a secure on-premises connector agent using gRPC streaming to synchronize real-time data between customer ERP systems and the cloud platform, reducing data sync latency from hours to minutes.
+- Delivered high write throughput through asynchronous ingestion and queued writes using NATS JetStream.
+- Built denormalized read models on authoritative normalized source data, maintaining consistency through transactional or asynchronous updates.
+- sub-second search across catalogs with 500K+ product records
+- Reduced API response times by 35% through Redis caching and PostgreSQL optimization.
+- Improved full-text search performance by 70% through query-plan analysis and index tuning.
+
+Agriculture
+- Built farmer and consultant workflows for lab results, feed recommendations, and private document exchange.
+
+AI Infrastructure
+- Built Go gateway and runtime control components for a data processing platform.
+- Implemented gRPC streaming and QUIC transport for on-premises deployments, with ordered streams, backpressure, and cancellation.
+- Implemented machine identity and certificate lifecycle management using mTLS and PKI, including enrollment, renewal, and rotation.
+- Built customer-site agents with runtime configuration and recovery.
+- Integrated OpenTelemetry Collector for metrics and logs.
+
+IoT & Telemetry | 2017–2022
+- Designed an event-driven microservices platform using NATS JetStream and gRPC supporting 10,000+ concurrent asset connections.
+- Designed sensor-data ingestion pipelines for real-time occupancy and environmental monitoring, processing 1M+ data points daily from temperature, motion, and presence sensors.
+
+Aviation & Airspace | 2015 – 2017
+- Built real-time flight authorization and airspace compliance systems processing 500+ daily flight plans with automated regulatory checks and live monitoring of 100+ concurrent drone operations.
+
+Productivity SaaS | 2020 – 2022
+- Delivered a multi-tenant task-management product from concept to production in 8 months, owning architecture, backend implementation, and delivery.
+- Designed and implemented the full platform stack including JWT-based authentication, role-based access control (RBAC), tenant isolation, and task management workflows using Go, PostgreSQL, and React.
+- Built analytics dashboards linking operational activity to company-level KPIs.
+- Established CI/CD pipelines, automated testing frameworks, and deployment workflows using Docker and Kubernetes, reducing deployment time from 2 hours to 15 minutes.
+
+Location-based Social
+- Built Go services for location-based social discovery, profiles, and user-generated content.
+- Exposed federated GraphQL and gRPC APIs across service boundaries.
+- Implemented PostGIS search for privacy-aware nearby activity.
+- Built media uploads, image variants, and asynchronous object cleanup using S3.
+
+EARLIER EXPERIENCE
+
+2014 – 2015
+Built Node.js microservices with real-time WebSocket data delivery, video streaming, and multi-provider feed aggregation.
+
+2013 – 2014
+Developed backend services for an energy consumption management platform, building data collection pipelines and reporting modules that enabled utility clients to monitor and optimize energy usage across commercial facilities.
+
+2012 – 2013
+Co-founded an online restaurant reservation startup.
+
+OPEN SOURCE
+
+agent-workflows
+https://github.com/belevtsev/agent-workflows
+Built agent-workflows, a Go-based manager for reusable engineering skills and agent configuration on macOS and Linux.
+Implemented installation, validation, updates, and rollback for a consistent AI-assisted engineering workflow.
+
+EDUCATION
+
+Master of Science in Software Engineering
+Lviv Polytechnic National University
+2006 – 2012
+“Prohibiting Copying Screen Algorithm for Content Security Protection” — Published in IEEE
+https://ieeexplore.ieee.org/document/5499331
